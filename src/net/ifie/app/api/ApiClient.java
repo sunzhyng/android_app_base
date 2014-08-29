@@ -10,7 +10,6 @@ import java.util.Map;
 
 import net.ifie.app.AppContext;
 import net.ifie.app.AppException;
-import net.ifie.app.bean.News;
 import net.ifie.app.bean.NewsList;
 import net.ifie.app.bean.Result;
 import net.ifie.app.bean.URLs;
@@ -56,8 +55,8 @@ public class ApiClient {
 
 	private static String getUserAgent(AppContext appContext) {
 		if (appUserAgent == null || appUserAgent == "") {
-			StringBuilder ua = new StringBuilder("OSChina.NET");
-			ua.append('/' + appContext.getPackageInfo().versionName + '_' + appContext.getPackageInfo().versionCode);//App版本
+			StringBuilder ua = new StringBuilder();
+			ua.append('/' + appContext.getPackageInfo().versionName + '_' + appContext.getPackageInfo().versionCode);
 			ua.append("/Android");
 			ua.append("/" + android.os.Build.VERSION.RELEASE);
 			ua.append("/" + android.os.Build.MODEL); 
@@ -186,7 +185,6 @@ public class ApiClient {
 		if (params != null)
 			for (String name : params.keySet()) {
 				parts[i++] = new StringPart(name, String.valueOf(params.get(name)), UTF_8);
-				System.out.println("post_key==> " + name + "    value==>" + String.valueOf(params.get(name)));
 			}
 		if (files != null)
 			for (String file : files.keySet()) {
@@ -310,7 +308,8 @@ public class ApiClient {
 		return bitmap;
 	}
 
-	public static NewsList getNewsList(AppContext appContext, final int catalog, final int tm, final int pageSize) throws AppException {
+	// load data
+	public static NewsList getNewsList(AppContext appContext, final int tm, final int pageSize) throws AppException {
 		String newUrl = _MakeURL(URLs.NEWS_LIST, new HashMap<String, Object>() {
 			{
 				if (tm == 0)
@@ -329,12 +328,5 @@ public class ApiClient {
 		}
 	}
 
-	public static News getNewsDetail(AppContext appContext, final String news_id, final String url) throws AppException {
-		try {
-			return News.parseHTML(http_get(appContext, url));
-		} catch (Exception e) {
-			throw (AppException) e;
-		}
-	}
 
 }

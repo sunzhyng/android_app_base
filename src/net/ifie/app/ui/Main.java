@@ -29,19 +29,16 @@ import android.widget.TextView;
 @SuppressLint({ "HandlerLeak", "InflateParams" })
 public class Main extends BaseActivity {
 
-	private int curNewsCatalog = NewsList.CATALOG_ALL;
-
 	private PullToRefreshListView lvNews;
 	private ListViewNewsAdapter lvNewsAdapter;
+	private View lvNews_footer;
+	private TextView lvNews_foot_more;
+	private ProgressBar lvNews_foot_progress;
 
 	private List<News> lvNewsData = new ArrayList<News>();
 
 	private Handler lvNewsHandler;
 	private int lvNewsLastTime;
-
-	private View lvNews_footer;
-	private TextView lvNews_foot_more;
-	private ProgressBar lvNews_foot_progress;
 
 	private AppContext appContext;
 
@@ -63,7 +60,7 @@ public class Main extends BaseActivity {
 	private void initFrameListViewData() {
 		lvNewsHandler = this.getLvHandler(lvNews, lvNewsAdapter, lvNews_foot_more, lvNews_foot_progress, AppContext.PAGE_SIZE);
 		if (lvNewsData.isEmpty()) {
-			loadLvNewsData(curNewsCatalog, 0, lvNewsHandler, UIHelper.LISTVIEW_ACTION_INIT);
+			loadLvNewsData(0, lvNewsHandler, UIHelper.LISTVIEW_ACTION_INIT);
 		}
 	}
 
@@ -114,7 +111,7 @@ public class Main extends BaseActivity {
 					lvNews_foot_more.setText(R.string.load_ing);
 					lvNews_foot_progress.setVisibility(View.VISIBLE);
 
-					loadLvNewsData(curNewsCatalog, lvNewsLastTime, lvNewsHandler, UIHelper.LISTVIEW_ACTION_SCROLL);
+					loadLvNewsData(lvNewsLastTime, lvNewsHandler, UIHelper.LISTVIEW_ACTION_SCROLL);
 				}
 			}
 
@@ -124,7 +121,7 @@ public class Main extends BaseActivity {
 		});
 		lvNews.setOnRefreshListener(new PullToRefreshListView.OnRefreshListener() {
 			public void onRefresh() {
-				loadLvNewsData(curNewsCatalog, 0, lvNewsHandler, UIHelper.LISTVIEW_ACTION_REFRESH);
+				loadLvNewsData(0, lvNewsHandler, UIHelper.LISTVIEW_ACTION_REFRESH);
 			}
 		});
 	}
@@ -174,32 +171,28 @@ public class Main extends BaseActivity {
 		case UIHelper.LISTVIEW_ACTION_REFRESH:
 		case UIHelper.LISTVIEW_ACTION_CHANGE_CATALOG:
 			int newdata = 0;
-			switch (objtype) {
-			case UIHelper.LISTVIEW_DATATYPE_NEWS:
-				NewsList nlist = (NewsList) obj;
-				notice = nlist.getNotice();
-				lvNewsLastTime = nlist.getLastTime();
-				if (actiontype == UIHelper.LISTVIEW_ACTION_REFRESH) {
-					if (lvNewsData.size() > 0) {
-						for (News news1 : nlist.getNewslist()) {
-							boolean b = false;
-							for (News news2 : lvNewsData) {
-								if (news1.getId() == news2.getId()) {
-									b = true;
-									break;
-								}
+			NewsList nlist = (NewsList) obj;
+			notice = nlist.getNotice();
+			lvNewsLastTime = nlist.getLastTime();
+			if (actiontype == UIHelper.LISTVIEW_ACTION_REFRESH) {
+				if (lvNewsData.size() > 0) {
+					for (News news1 : nlist.getNewslist()) {
+						boolean b = false;
+						for (News news2 : lvNewsData) {
+							if (news1.getId() == news2.getId()) {
+								b = true;
+								break;
 							}
-							if (!b)
-								newdata++;
 						}
-					} else {
-						newdata = what;
+						if (!b)
+							newdata++;
 					}
+				} else {
+					newdata = what;
 				}
-				lvNewsData.clear();
-				lvNewsData.addAll(nlist.getNewslist());
-				break;
 			}
+			lvNewsData.clear();
+			lvNewsData.addAll(nlist.getNewslist());
 			if (actiontype == UIHelper.LISTVIEW_ACTION_REFRESH) {
 				if (newdata > 0) {
 					NewDataToast.makeText(this, getString(R.string.new_data_toast_message, newdata), appContext.isAppSound()).show();
@@ -209,34 +202,30 @@ public class Main extends BaseActivity {
 			}
 			break;
 		case UIHelper.LISTVIEW_ACTION_SCROLL:
-			switch (objtype) {
-			case UIHelper.LISTVIEW_DATATYPE_NEWS:
-				NewsList list = (NewsList) obj;
-				notice = list.getNotice();
-				lvNewsLastTime = list.getLastTime();
-				if (lvNewsData.size() > 0) {
-					for (News news1 : list.getNewslist()) {
-						boolean b = false;
-						for (News news2 : lvNewsData) {
-							if (news1.getId() == news2.getId()) {
-								b = true;
-								break;
-							}
+			NewsList list = (NewsList) obj;
+			notice = list.getNotice();
+			lvNewsLastTime = list.getLastTime();
+			if (lvNewsData.size() > 0) {
+				for (News news1 : list.getNewslist()) {
+					boolean b = false;
+					for (News news2 : lvNewsData) {
+						if (news1.getId() == news2.getId()) {
+							b = true;
+							break;
 						}
-						if (!b)
-							lvNewsData.add(news1);
 					}
-				} else {
-					lvNewsData.addAll(list.getNewslist());
+					if (!b)
+						lvNewsData.add(news1);
 				}
-				break;
+			} else {
+				lvNewsData.addAll(list.getNewslist());
 			}
 			break;
 		}
 		return notice;
 	}
 
-	private void loadLvNewsData(final int catalog, final int pageIndex, final Handler handler, final int action) {
+	private void loadLvNewsData(final int pageIndex, final Handler handler, final int action) {
 		new Thread() {
 			public void run() {
 				Message msg = new Message();
@@ -244,7 +233,7 @@ public class Main extends BaseActivity {
 				if (action == UIHelper.LISTVIEW_ACTION_REFRESH || action == UIHelper.LISTVIEW_ACTION_SCROLL)
 					isRefresh = true;
 				try {
-					NewsList list = appContext.getNewsList(catalog, pageIndex, isRefresh);
+					NewsList list = appContext.getNewsList(pageIndex, isRefresh);
 					msg.what = list.getPageSize();
 					msg.obj = list;
 				} catch (AppException e) {
@@ -254,8 +243,7 @@ public class Main extends BaseActivity {
 				}
 				msg.arg1 = action;
 				msg.arg2 = UIHelper.LISTVIEW_DATATYPE_NEWS;
-				if (curNewsCatalog == catalog)
-					handler.sendMessage(msg);
+				handler.sendMessage(msg);
 			}
 		}.start();
 	}

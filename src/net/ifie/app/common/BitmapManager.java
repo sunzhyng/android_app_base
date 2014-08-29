@@ -45,6 +45,8 @@ public class BitmapManager {
 
 	public void loadBitmap(String url, ImageView imageView) {
 		url = Uri.encode(url);
+		url = url.replaceAll("%3A", ":");
+		url = url.replaceAll("%2F", "/");
 		loadBitmap(url, imageView, this.defaultBmp, 0, 0);
 	}
 

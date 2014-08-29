@@ -9,7 +9,6 @@ package net.ifie.app.bean;
  */
 public abstract class Entity extends Base {
 
-	private static final long serialVersionUID = 1L;
 	protected String id;
 
 	public String getId() {

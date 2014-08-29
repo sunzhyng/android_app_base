@@ -29,6 +29,16 @@
 		<item name="android:shadowDy">1</item>
 		<item name="android:shadowRadius">1</item>
     </style>
+    
+   	<style name="user_face_image">
+		<item name="android:layout_width">40.0dip</item>
+		<item name="android:layout_height">40.0dip</item>
+		<item name="android:scaleType">fitCenter</item>
+		<item name="android:padding">1.0dip</item>
+		<item name="android:clickable">true</item>
+		<item name="android:background">@drawable/widget_dface_border</item>
+		<item name="android:src">@drawable/widget_dface_loading</item>
+    </style> 
    	
     <style name="widget_listview">
         <item name="android:layout_width">fill_parent</item>

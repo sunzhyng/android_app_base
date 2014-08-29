@@ -14,7 +14,6 @@ import java.util.Properties;
 import java.util.UUID;
 
 import net.ifie.app.api.ApiClient;
-import net.ifie.app.bean.News;
 import net.ifie.app.bean.NewsList;
 import net.ifie.app.bean.Notice;
 import net.ifie.app.common.MethodsCompat;
@@ -158,12 +157,12 @@ public class AppContext extends Application {
 		return uniqueID;
 	}
 
-	public NewsList getNewsList(int catalog, int pageIndex, boolean isRefresh) throws AppException {
+	public NewsList getNewsList(int pageIndex, boolean isRefresh) throws AppException {
 		NewsList list = null;
-		String key = "newslist_" + catalog + "_" + pageIndex + "_" + PAGE_SIZE;
+		String key = "newslist_" + "_" + pageIndex + "_" + PAGE_SIZE;
 		if (isNetworkConnected() && (!isReadDataCache(key) || isRefresh)) {
 			try {
-				list = ApiClient.getNewsList(this, catalog, pageIndex, PAGE_SIZE);
+				list = ApiClient.getNewsList(this, pageIndex, PAGE_SIZE);
 				if (list != null && pageIndex == 0) {
 					Notice notice = list.getNotice();
 					list.setNotice(null);
@@ -182,45 +181,6 @@ public class AppContext extends Application {
 				list = new NewsList();
 		}
 		return list;
-	}
-
-	public News getNews(String news_id, String url, boolean isRefresh) throws AppException {
-		News news = null;
-		String key = "news_" + news_id;
-		if (isNetworkConnected() && (!isReadDataCache(key) || isRefresh)) {
-			try {
-				news = ApiClient.getNewsDetail(this, news_id, url);
-				if (news != null) {
-					Notice notice = news.getNotice();
-					news.setNotice(null);
-					news.setCacheKey(key);
-					saveObject(news, key);
-					news.setNotice(notice);
-				}
-			} catch (AppException e) {
-				news = (News) readObject(key);
-				if (news == null)
-					throw e;
-			}
-		} else {
-			news = (News) readObject(key);
-			if (news == null)
-				news = new News();
-		}
-		return news;
-	}
-
-	public boolean isLoadImage() {
-		String perf_loadimage = getProperty(AppConfig.CONF_LOAD_IMAGE);
-		//默认是加载的
-		if (StringUtils.isEmpty(perf_loadimage))
-			return true;
-		else
-			return StringUtils.toBool(perf_loadimage);
-	}
-
-	public void setConfigLoadimage(boolean b) {
-		setProperty(AppConfig.CONF_LOAD_IMAGE, String.valueOf(b));
 	}
 
 	public boolean isVoice() {

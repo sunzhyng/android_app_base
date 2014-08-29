@@ -21,7 +21,6 @@ import android.util.Xml;
  */
 public class Notice implements Serializable {
 
-	private static final long serialVersionUID = 1L;
 	public final static String UTF8 = "UTF-8";
 	public final static String NODE_ROOT = "ifie";
 

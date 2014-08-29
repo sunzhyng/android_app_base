@@ -1,16 +1,8 @@
 package net.ifie.app.bean;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import net.ifie.app.AppException;
-import net.ifie.app.common.StringUtils;
-
 public class News extends Entity {
 
-	private static final long serialVersionUID = 1L;
-
-	public final static int NEWSTYPE_NEWS = 0x00;//0 新闻
+	public final static int NEWSTYPE_NEWS = 0x00;
 
 	private String title;
 	private String url;
@@ -47,19 +39,6 @@ public class News extends Entity {
 
 	public void setBody(String body) {
 		this.body = body;
-	}
-
-	public static News parseHTML(InputStream inputStream) throws IOException, AppException {
-		News news = null;
-		try {
-			news = new News();
-			news.setBody(StringUtils.read(inputStream));
-		} catch (Exception e) {
-			throw AppException.run(e);
-		} finally {
-			inputStream.close();
-		}
-		return news;
 	}
 
 }
