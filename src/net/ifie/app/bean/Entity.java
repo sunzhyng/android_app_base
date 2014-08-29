@@ -1,5 +1,7 @@
 package net.ifie.app.bean;
 
+import cn.szylxy.libs.bean.Base;
+
 /**
  * 实体类
  * 

@@ -1,6 +1,6 @@
 package net.ifie.app;
 
-//import net.ifie.app.ui.DemoPullToRefresh;
+import net.ifie.app.ui.DemoPullToRefresh;
 import net.ifie.app.ui.DemoScrollLayout;
 import net.ifie.app.R;
 import android.app.Activity;
@@ -42,7 +42,7 @@ public class AppStart extends Activity {
 	}
 
 	private void redirectTo() {
-		Intent intent = new Intent(this, DemoScrollLayout.class);
+		Intent intent = new Intent(this, DemoPullToRefresh.class);
 		startActivity(intent);
 		finish();
 	}

@@ -2,9 +2,9 @@ package net.ifie.app.adapter;
 
 import java.util.List;
 
+import cn.szylxy.libs.common.BitmapManager;
+import cn.szylxy.libs.common.StringUtils;
 import net.ifie.app.bean.News;
-import net.ifie.app.common.BitmapManager;
-import net.ifie.app.common.StringUtils;
 import net.ifie.app.R;
 import android.content.Context;
 import android.graphics.BitmapFactory;

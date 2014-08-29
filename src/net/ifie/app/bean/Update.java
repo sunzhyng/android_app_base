@@ -4,8 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 
+import cn.szylxy.libs.common.StringUtils;
+
 import net.ifie.app.AppException;
-import net.ifie.app.common.StringUtils;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

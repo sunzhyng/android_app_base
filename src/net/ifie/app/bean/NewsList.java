@@ -5,8 +5,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.szylxy.libs.common.StringUtils;
+
 import net.ifie.app.AppException;
-import net.ifie.app.common.StringUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

@@ -11,7 +11,6 @@ import java.util.Map;
 import net.ifie.app.AppContext;
 import net.ifie.app.AppException;
 import net.ifie.app.bean.NewsList;
-import net.ifie.app.bean.Result;
 import net.ifie.app.bean.URLs;
 import net.ifie.app.bean.Update;
 
@@ -29,8 +28,7 @@ import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import cn.szylxy.libs.bean.Result;
 
 public class ApiClient {
 
@@ -260,53 +258,6 @@ public class ApiClient {
 			}
 		}
 		return new ByteArrayInputStream(responseBody.getBytes());
-	}
-
-	public static Bitmap getNetBitmap(String url) throws AppException {
-		HttpClient httpClient = null;
-		GetMethod httpGet = null;
-		Bitmap bitmap = null;
-		int time = 0;
-		do {
-			try {
-				httpClient = getHttpClient();
-				httpGet = getHttpGet(url, null, null);
-				int statusCode = httpClient.executeMethod(httpGet);
-				if (statusCode != HttpStatus.SC_OK) {
-					throw AppException.http(statusCode);
-				}
-				InputStream inStream = httpGet.getResponseBodyAsStream();
-				bitmap = BitmapFactory.decodeStream(inStream);
-				inStream.close();
-				break;
-			} catch (HttpException e) {
-				time++;
-				if (time < RETRY_TIME) {
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e1) {
-					}
-					continue;
-				}
-				e.printStackTrace();
-				throw AppException.http(e);
-			} catch (IOException e) {
-				time++;
-				if (time < RETRY_TIME) {
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e1) {
-					}
-					continue;
-				}
-				e.printStackTrace();
-				throw AppException.network(e);
-			} finally {
-				httpGet.releaseConnection();
-				httpClient = null;
-			}
-		} while (time < RETRY_TIME);
-		return bitmap;
 	}
 	
 	public static Update checkVersion(AppContext appContext) throws AppException {

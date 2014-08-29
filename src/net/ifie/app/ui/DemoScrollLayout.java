@@ -1,8 +1,8 @@
 package net.ifie.app.ui;
 
+import cn.szylxy.libs.widget.ScrollLayout;
 import net.ifie.app.R;
-import net.ifie.app.common.UpdateManager;
-import net.ifie.app.widget.ScrollLayout;
+//import net.ifie.app.common.UpdateManager;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +23,7 @@ public class DemoScrollLayout extends Activity {
 
 		initPageScroll();
 		
-		UpdateManager.getUpdateManager().checkAppUpdate(this, false);
+		//UpdateManager.getUpdateManager().checkAppUpdate(this, false);
 	}
 
 	private void initPageScroll() {

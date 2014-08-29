@@ -5,11 +5,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Properties;
 
-import net.ifie.app.common.StringUtils;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
+import cn.szylxy.libs.common.StringUtils;
 
 @SuppressLint("NewApi")
 public class AppConfig {

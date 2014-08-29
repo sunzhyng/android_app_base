@@ -13,11 +13,11 @@ import java.util.Hashtable;
 import java.util.Properties;
 import java.util.UUID;
 
+import cn.szylxy.libs.bean.Notice;
+import cn.szylxy.libs.common.MethodsCompat;
+import cn.szylxy.libs.common.StringUtils;
 import net.ifie.app.api.ApiClient;
 import net.ifie.app.bean.NewsList;
-import net.ifie.app.bean.Notice;
-import net.ifie.app.common.MethodsCompat;
-import net.ifie.app.common.StringUtils;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
