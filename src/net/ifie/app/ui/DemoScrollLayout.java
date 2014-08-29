@@ -1,6 +1,7 @@
 package net.ifie.app.ui;
 
 import net.ifie.app.R;
+import net.ifie.app.common.UpdateManager;
 import net.ifie.app.widget.ScrollLayout;
 import android.app.Activity;
 import android.os.Bundle;
@@ -21,6 +22,8 @@ public class DemoScrollLayout extends Activity {
 		setContentView(R.layout.activity_scroll_layout);
 
 		initPageScroll();
+		
+		UpdateManager.getUpdateManager().checkAppUpdate(this, false);
 	}
 
 	private void initPageScroll() {

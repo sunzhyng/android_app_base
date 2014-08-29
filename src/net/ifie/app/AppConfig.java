@@ -16,14 +16,6 @@ public class AppConfig {
 
 	private final static String APP_CONFIG = "config";
 
-	public final static String TEMP_TWEET = "temp_tweet";
-	public final static String TEMP_TWEET_IMAGE = "temp_tweet_image";
-	public final static String TEMP_MESSAGE = "temp_message";
-	public final static String TEMP_COMMENT = "temp_comment";
-	public final static String TEMP_POST_TITLE = "temp_post_title";
-	public final static String TEMP_POST_CATALOG = "temp_post_catalog";
-	public final static String TEMP_POST_CONTENT = "temp_post_content";
-
 	public final static String CONF_APP_UNIQUEID = "APP_UNIQUEID";
 	public final static String CONF_COOKIE = "cookie";
 	public final static String CONF_ACCESSTOKEN = "accessToken";

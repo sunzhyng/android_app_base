@@ -13,6 +13,7 @@ import net.ifie.app.AppException;
 import net.ifie.app.bean.NewsList;
 import net.ifie.app.bean.Result;
 import net.ifie.app.bean.URLs;
+import net.ifie.app.bean.Update;
 
 import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
@@ -306,6 +307,16 @@ public class ApiClient {
 			}
 		} while (time < RETRY_TIME);
 		return bitmap;
+	}
+	
+	public static Update checkVersion(AppContext appContext) throws AppException {
+		try{
+			return Update.parse(http_get(appContext, URLs.UPDATE_VERSION));		
+		}catch(Exception e){
+			if(e instanceof AppException)
+				throw (AppException)e;
+			throw AppException.network(e);
+		}
 	}
 
 	// load data

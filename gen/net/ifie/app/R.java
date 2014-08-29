@@ -156,6 +156,8 @@ public final class R {
         public static final int news_listitem_date=0x7f0a000e;
         public static final int news_listitem_flag=0x7f0a000c;
         public static final int news_listitem_title=0x7f0a000d;
+        public static final int update_progress=0x7f0a0015;
+        public static final int update_progress_text=0x7f0a0016;
     }
     public static final class layout {
         public static final int activity_scroll_layout=0x7f030000;
@@ -172,6 +174,7 @@ public final class R {
         public static final int news_listitem=0x7f03000b;
         public static final int pull_to_refresh_head=0x7f03000c;
         public static final int start=0x7f03000d;
+        public static final int update_progress=0x7f03000e;
     }
     public static final class raw {
         public static final int newdatatoast=0x7f050000;

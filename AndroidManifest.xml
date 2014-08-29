@@ -30,13 +30,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.Main"
+            android:name=".ui.DemoPullToRefresh"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name=".ui.ScrollLayoutActivity"
-            android:theme="@android:style/Theme.NoTitleBar" />
+            android:name=".ui.DemoScrollLayout" />
     </application>
 
 </manifest>
