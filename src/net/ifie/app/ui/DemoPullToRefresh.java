@@ -27,7 +27,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 @SuppressLint({ "HandlerLeak", "InflateParams" })
-public class Main extends BaseActivity {
+public class DemoPullToRefresh extends BaseActivity {
 
 	private PullToRefreshListView lvNews;
 	private ListViewNewsAdapter lvNewsAdapter;
@@ -146,7 +146,7 @@ public class Main extends BaseActivity {
 				} else if (msg.what == -1) {
 					lv.setTag(UIHelper.LISTVIEW_DATA_MORE);
 					more.setText(R.string.load_error);
-					((AppException) msg.obj).makeToast(Main.this);
+					((AppException) msg.obj).makeToast(DemoPullToRefresh.this);
 				}
 				if (adapter.getCount() == 0) {
 					lv.setTag(UIHelper.LISTVIEW_DATA_EMPTY);

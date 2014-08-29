@@ -1,0 +1,21 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <net.ifie.app.widget.ScrollLayout
+        android:id="@+id/main_scrolllayout"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <include layout="@layout/frame_lay_1" />
+
+        <include layout="@layout/frame_lay_2" />
+
+        <include layout="@layout/frame_lay_3" />
+    </net.ifie.app.widget.ScrollLayout>
+
+    <include layout="@layout/main_footer" />
+
+</LinearLayout>
